@@ -1,23 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import { useDispatch, useSelector } from "react-redux";
+import "./App.css";
+import TodoContainer from "./components/TodoContainer";
 
 function App() {
+  const counter = useSelector((state) => state.counter.counter);
+  const dispatch = useDispatch();
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+      <div>
+        <h1>Contador</h1>
+        <span>Le he dado click: {counter} veces</span>
+        <button
+          onClick={() =>
+            dispatch({
+              type: "INCREMENT",
+            })
+          }
         >
-          Learn React
-        </a>
-      </header>
+          +
+        </button>
+        <button
+          onClick={() => {
+            dispatch({
+              type: "DECREMENT",
+            });
+          }}
+        >
+          -
+        </button>
+      </div>
+      <div>
+        <h1>Todos</h1>
+        <TodoContainer />
+      </div>
     </div>
   );
 }

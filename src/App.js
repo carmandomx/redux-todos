@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
-import "./App.css";
 import TodoContainer from "./components/TodoContainer";
+
+import "./App.css";
 
 function App() {
   const counter = useSelector((state) => state.counter.counter);

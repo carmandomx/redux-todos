@@ -19,7 +19,9 @@ const TodoContainer = () => {
       {isLoading ? (
         <p>Loading...</p>
       ) : (
-        todos.map((todo, index) => <TodoItem task={todo.task} key={todo.id} />)
+        todos.map((todo, index) => (
+          <TodoItem task={todo.task} key={todo.id} id={todo.id} />
+        ))
       )}
     </div>
   );

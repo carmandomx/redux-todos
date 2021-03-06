@@ -32,7 +32,21 @@ const reducer = (state = INITIAL_STATE, action) => {
     case ACTION_TYPES.deleteTodo:
       return {
         ...state,
-        todos: state.todos.filter((value) => value !== action.payload),
+        isLoading: true,
+      };
+
+    case ACTION_TYPES.deleteTodoSuccess:
+      return {
+        ...state,
+        isLoading: false,
+        todos: state.todos.filter((todo) => todo.id !== action.payload),
+      };
+
+    case ACTION_TYPES.deleteTodoFail:
+      return {
+        ...state,
+        isLoading: false,
+        err: action.payload.response.data,
       };
 
     case ACTION_TYPES.getTodo:

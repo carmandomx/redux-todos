@@ -5,6 +5,8 @@ export const ACTION_TYPES = {
   addTodoSuccess: "ADD_TODO_SUCCESS",
   addTodoFail: "ADD_TODO_FAIL",
   deleteTodo: "DELETE_TODO",
+  deleteTodoSuccess: "DELETE_TODO_SUCCESS",
+  deleteTodoFail: "DELETE_TODO_FAIL",
   getTodo: "GET_TODOS",
   getTodoSuccess: "GET_TODOS_SUCCESS",
   getTodoFail: "GET_TODOS_FAIL",
@@ -32,10 +34,23 @@ export const addTodoFail = (err) => {
 };
 
 // actionCreator
-export const deleteTodo = (task) => {
+export const deleteTodo = () => {
   return {
     type: ACTION_TYPES.deleteTodo,
-    payload: task,
+  };
+};
+
+export const deleteTodoSuccess = (id) => {
+  return {
+    type: ACTION_TYPES.deleteTodoSuccess,
+    payload: id,
+  };
+};
+
+export const deleteTodoFail = (err) => {
+  return {
+    type: ACTION_TYPES.deleteTodoFail,
+    payload: err,
   };
 };
 
@@ -76,5 +91,16 @@ export const addTodoThunk = (todo) => {
       .post("https://todos-go.herokuapp.com/api/todos", todo)
       .then((res) => dispatch(addTodoSuccess(res.data)))
       .catch((err) => dispatch(addTodoFail(err)));
+  };
+};
+
+// thunk deleteTodo
+export const deleteTodoThunk = (todoId) => {
+  return (dispatch) => {
+    dispatch(deleteTodo());
+    return axios
+      .delete(`https://todos-go.herokuapp.com/api/todos/${todoId}`)
+      .then(() => dispatch(deleteTodoSuccess(todoId)))
+      .catch((err) => dispatch(deleteTodoFail(err)));
   };
 };

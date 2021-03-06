@@ -11,7 +11,7 @@ const TodoForm = () => {
   };
   return (
     <>
-      {err && (
+      {err && err?.errors && (
         <p>
           {Object.keys(err.errors).map((key) => (
             <span>
